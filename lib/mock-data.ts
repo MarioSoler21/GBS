@@ -1,4 +1,4 @@
-import type { Deal, Contact, BusinessUnit } from './types';
+import type { Deal, Contact, BusinessUnit, Proposal } from './types';
 
 export const UNIT_COLORS: Record<BusinessUnit, string> = {
   'GBS Carga': '#3B82F6',
@@ -400,3 +400,162 @@ export const weeklyData = [
   { week: 'S7', count: 1, value: 950000 },
   { week: 'S8', count: 0, value: 0 },
 ];
+
+const DEFAULT_SECTIONS = { whoWeAre: true, problem: true, solution: true, pricing: true, terms: true, nextSteps: true };
+
+export const proposals: Proposal[] = [
+  {
+    id: 'p1',
+    number: 'GBS-2026-001',
+    unit: 'GBS Carga',
+    clientName: 'Diana Castillo',
+    clientCompany: 'Transporte 360',
+    clientEmail: 'd.castillo@transporte360.com',
+    clientCountry: 'México',
+    serviceType: 'Calculadora de flete con captación de leads',
+    expiresAt: '2026-06-30',
+    internalNote: 'Cliente muy interesado, seguimiento urgente para cierre antes de fin de mes.',
+    items: [
+      { id: 'pi1', description: 'Desarrollo calculadora de flete online (rutas, peso, modalidad)', type: 'Setup', quantity: 1, unitPrice: 1500, total: 1500 },
+      { id: 'pi2', description: 'Retainer mensual — mantenimiento, soporte y mejoras', type: 'Mensual', quantity: 1, unitPrice: 150, total: 150 },
+    ],
+    discountType: 'percent',
+    discountValue: 0,
+    priceNotes: 'Los precios están expresados en USD. El retainer incluye hasta 5 horas de soporte al mes.',
+    introMessage: 'Estimada Diana, es un placer presentarle esta propuesta para automatizar la captación de leads y el proceso de cotización de flete en Transporte 360. Nuestro sistema permitirá a su equipo recibir cotizaciones en tiempo real y capturar prospectos cualificados de forma automática, 24/7.',
+    sections: { ...DEFAULT_SECTIONS },
+    status: 'Enviada',
+    createdAt: '2026-05-15',
+    updatedAt: '2026-05-16',
+    dealId: 'd13',
+    contactId: 'c10',
+  },
+  {
+    id: 'p2',
+    number: 'GBS-2026-002',
+    unit: 'Global Commodities',
+    clientName: 'Andrés Villanueva',
+    clientCompany: 'Cafetales Unidos Colombia',
+    clientEmail: 'a.villanueva@cafetalesunidos.com',
+    clientCountry: 'Colombia',
+    serviceType: 'CRM con IA integrada',
+    expiresAt: '2026-07-15',
+    internalNote: 'Contrato firmado. Arrancar kick-off la primera semana de junio.',
+    items: [
+      { id: 'pi3', description: 'Setup e implementación completa de CRM con módulo IA', type: 'Setup', quantity: 1, unitPrice: 3500, total: 3500 },
+      { id: 'pi4', description: 'Retainer mensual — soporte, mejoras y actualizaciones IA', type: 'Mensual', quantity: 1, unitPrice: 300, total: 300 },
+    ],
+    discountType: 'percent',
+    discountValue: 0,
+    priceNotes: 'Precio especial por ser cliente estratégico de Global Commodities. Incluye 10 usuarios.',
+    introMessage: 'Estimado Andrés, adjunto encontrará nuestra propuesta para implementar un CRM con inteligencia artificial en Cafetales Unidos Colombia. Esta solución centralizará la gestión de exportaciones, clientes y seguimiento comercial en una sola plataforma potenciada por IA.',
+    sections: { ...DEFAULT_SECTIONS },
+    status: 'Aceptada',
+    createdAt: '2026-04-20',
+    updatedAt: '2026-05-10',
+    dealId: 'd4',
+    contactId: 'c3',
+  },
+  {
+    id: 'p3',
+    number: 'GBS-2026-003',
+    unit: 'GBS Financial',
+    clientName: 'Sofía Ramírez',
+    clientCompany: 'Inversión 360',
+    clientEmail: 's.ramirez@inversion360.com',
+    clientCountry: 'México',
+    serviceType: 'Dashboard Power BI',
+    expiresAt: '2026-07-01',
+    internalNote: 'Pendiente de validar alcance con Pedro Castro antes de enviar.',
+    items: [
+      { id: 'pi5', description: 'Setup Power BI — diseño, conexión de fuentes y dashboards', type: 'Setup', quantity: 1, unitPrice: 1000, total: 1000 },
+      { id: 'pi6', description: 'Retainer mensual — mantenimiento, nuevas visualizaciones', type: 'Mensual', quantity: 1, unitPrice: 300, total: 300 },
+    ],
+    discountType: 'percent',
+    discountValue: 0,
+    priceNotes: 'Incluye hasta 5 dashboards y conexión a 3 fuentes de datos.',
+    introMessage: 'Estimada Sofía, presentamos esta propuesta para transformar los datos de Inversión 360 en dashboards ejecutivos en tiempo real con Power BI. Su equipo directivo tendrá visibilidad completa de métricas financieras y operativas desde cualquier dispositivo.',
+    sections: { ...DEFAULT_SECTIONS },
+    status: 'Borrador',
+    createdAt: '2026-05-25',
+    updatedAt: '2026-05-25',
+    dealId: 'd3',
+    contactId: 'c2',
+  },
+  {
+    id: 'p4',
+    number: 'GBS-2026-004',
+    unit: 'Water & Energy',
+    clientName: 'Roberto Herrera',
+    clientCompany: 'Energía Verde SA',
+    clientEmail: 'r.herrera@energiaverde.com',
+    clientCountry: 'México',
+    serviceType: 'Agente WhatsApp',
+    expiresAt: '2026-05-31',
+    internalNote: 'Cliente rechazó por presupuesto. Posible retomar en Q3 con precio ajustado.',
+    items: [
+      { id: 'pi7', description: 'Setup Agente WhatsApp — flujos, integración y entrenamiento', type: 'Setup', quantity: 1, unitPrice: 2500, total: 2500 },
+      { id: 'pi8', description: 'Retainer mensual — mantenimiento y optimización del agente', type: 'Mensual', quantity: 1, unitPrice: 250, total: 250 },
+    ],
+    discountType: 'percent',
+    discountValue: 10,
+    priceNotes: 'Se aplicó descuento del 10% en setup por ser cliente existente de Water & Energy.',
+    introMessage: 'Estimado Roberto, en CODABI hemos desarrollado esta propuesta para automatizar la atención y captación de leads por WhatsApp en Energía Verde SA. El agente responderá consultas 24/7 y agendará citas sin intervención humana.',
+    sections: { ...DEFAULT_SECTIONS },
+    status: 'Rechazada',
+    createdAt: '2026-04-15',
+    updatedAt: '2026-05-05',
+    dealId: 'd8',
+    contactId: 'c5',
+  },
+  {
+    id: 'p5',
+    number: 'GBS-2026-005',
+    unit: 'NewTechPros',
+    clientName: 'Miguel Torres',
+    clientCompany: 'TechBuild Solutions',
+    clientEmail: 'm.torres@techbuild.com',
+    clientCountry: 'México',
+    serviceType: 'CRM con IA integrada',
+    expiresAt: '2026-07-01',
+    internalNote: 'Reunión de seguimiento programada para el 10 de junio.',
+    items: [
+      { id: 'pi9', description: 'Setup e implementación completa de CRM con módulo IA', type: 'Setup', quantity: 1, unitPrice: 3500, total: 3500 },
+      { id: 'pi10', description: 'Retainer mensual — soporte, mejoras y actualizaciones IA', type: 'Mensual', quantity: 1, unitPrice: 300, total: 300 },
+    ],
+    discountType: 'percent',
+    discountValue: 0,
+    priceNotes: 'Incluye onboarding completo del equipo y documentación técnica.',
+    introMessage: 'Estimado Miguel, adjunto nuestra propuesta para implementar un CRM con IA en TechBuild Solutions. La plataforma consolidará la gestión de proyectos, clientes y pipeline comercial, con alertas automáticas y reportes ejecutivos en tiempo real.',
+    sections: { ...DEFAULT_SECTIONS },
+    status: 'Enviada',
+    createdAt: '2026-05-20',
+    updatedAt: '2026-05-22',
+    dealId: 'd10',
+    contactId: 'c7',
+  },
+];
+
+export function getProposalsByContact(contactId: string): Proposal[] {
+  return proposals.filter((p) => p.contactId === contactId);
+}
+
+export function calcProposalTotals(
+  items: Proposal['items'],
+  discountType: 'percent' | 'fixed',
+  discountValue: number
+) {
+  const setupSubtotal = items
+    .filter((i) => i.type === 'Setup' || i.type === 'Único')
+    .reduce((s, i) => s + i.total, 0);
+  const monthlyTotal = items
+    .filter((i) => i.type === 'Mensual')
+    .reduce((s, i) => s + i.total, 0);
+  const discountAmount =
+    discountType === 'percent'
+      ? (setupSubtotal * discountValue) / 100
+      : discountValue;
+  const setupTotal = setupSubtotal - discountAmount;
+  const firstYearTotal = setupTotal + monthlyTotal * 12;
+  return { setupSubtotal, setupTotal, monthlyTotal, discountAmount, firstYearTotal };
+}

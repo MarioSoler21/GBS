@@ -6,6 +6,7 @@ import PipelineChart from '@/components/reportes/PipelineChart';
 import WeeklyChart from '@/components/reportes/WeeklyChart';
 import DonutChart from '@/components/reportes/DonutChart';
 import KpiRow from '@/components/reportes/KpiRow';
+import ProposalMetricsSection from '@/components/propuestas/ProposalMetricsSection';
 import type { BusinessUnit } from '@/lib/types';
 
 export default function ReportesPage() {
@@ -25,6 +26,7 @@ export default function ReportesPage() {
           <WeeklyChart />
         </div>
         <DonutChart />
+        <ProposalMetricsSection />
       </div>
     </div>
   );

@@ -14,31 +14,33 @@ const units: Array<'Todas' | BusinessUnit> = [
 ];
 
 interface HeaderProps {
-  selectedUnit: 'Todas' | BusinessUnit;
-  onUnitChange: (unit: 'Todas' | BusinessUnit) => void;
   title: string;
+  selectedUnit?: 'Todas' | BusinessUnit;
+  onUnitChange?: (unit: 'Todas' | BusinessUnit) => void;
 }
 
 export default function Header({ selectedUnit, onUnitChange, title }: HeaderProps) {
   const { theme, toggle } = useTheme();
 
   return (
-    <header className="h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 sticky top-0 z-20">
+    <header className="h-14 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 flex items-center justify-between px-6 sticky top-0 z-20 print:hidden">
       <h1 className="text-base font-semibold text-gray-900 dark:text-white">{title}</h1>
 
       <div className="flex items-center gap-3">
-        <div className="relative">
-          <select
-            value={selectedUnit}
-            onChange={(e) => onUnitChange(e.target.value as 'Todas' | BusinessUnit)}
-            className="appearance-none pl-3 pr-8 py-1.5 text-sm border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
-          >
-            {units.map((u) => (
-              <option key={u} value={u}>{u}</option>
-            ))}
-          </select>
-          <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
-        </div>
+        {selectedUnit !== undefined && onUnitChange && (
+          <div className="relative">
+            <select
+              value={selectedUnit}
+              onChange={(e) => onUnitChange(e.target.value as 'Todas' | BusinessUnit)}
+              className="appearance-none pl-3 pr-8 py-1.5 text-sm border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 cursor-pointer"
+            >
+              {units.map((u) => (
+                <option key={u} value={u}>{u}</option>
+              ))}
+            </select>
+            <ChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 pointer-events-none" />
+          </div>
+        )}
 
         <button
           onClick={toggle}

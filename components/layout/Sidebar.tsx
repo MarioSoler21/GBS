@@ -2,19 +2,21 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Users, BarChart3, Globe } from 'lucide-react';
+import { LayoutDashboard, Users, BarChart3, Globe, FileText, Zap } from 'lucide-react';
 
 const nav = [
   { href: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { href: '/contactos', label: 'Contactos', icon: Users },
   { href: '/reportes', label: 'Reportes', icon: BarChart3 },
+  { href: '/propuestas', label: 'Propuestas', icon: FileText },
+  { href: '/portal', label: 'Portal', icon: Zap },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
 
   return (
-    <aside className="fixed left-0 top-0 h-screen w-56 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col z-30">
+    <aside className="fixed left-0 top-0 h-screen w-56 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 flex flex-col z-30 print:hidden">
       <div className="flex items-center gap-2 px-5 py-5 border-b border-gray-200 dark:border-gray-700">
         <Globe className="w-6 h-6 text-blue-600" />
         <span className="font-bold text-sm text-gray-900 dark:text-white leading-tight">

@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 import { ThemeProvider } from '@/lib/theme-context';
+import { ProposalsProvider } from '@/lib/proposals-context';
+import { DealsProvider } from '@/lib/deals-context';
 import Sidebar from '@/components/layout/Sidebar';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -16,8 +18,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.className} bg-gray-50 dark:bg-gray-950 text-gray-900 dark:text-white`}>
         <ThemeProvider>
-          <Sidebar />
-          <main className="ml-56 min-h-screen">{children}</main>
+          <DealsProvider>
+            <ProposalsProvider>
+              <Sidebar />
+              <main className="ml-56 min-h-screen print:ml-0">{children}</main>
+            </ProposalsProvider>
+          </DealsProvider>
         </ThemeProvider>
       </body>
     </html>

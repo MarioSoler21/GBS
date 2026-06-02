@@ -1,8 +1,12 @@
 'use client';
 
-import { X, Mail, Phone, Building2, Calendar } from 'lucide-react';
+import Link from 'next/link';
+import { X, Mail, Phone, Building2, Calendar, FileText } from 'lucide-react';
 import type { Contact, Deal } from '@/lib/types';
 import { UNIT_BG } from '@/lib/mock-data';
+import { useProposals } from '@/lib/proposals-context';
+import StatusBadge from '@/components/propuestas/StatusBadge';
+import { calcProposalTotals } from '@/lib/mock-data';
 
 interface ContactDrawerProps {
   contact: Contact;
@@ -13,8 +17,13 @@ interface ContactDrawerProps {
 const fmt = (n: number) =>
   n >= 1_000_000 ? `$${(n / 1_000_000).toFixed(2)}M` : `$${(n / 1_000).toFixed(0)}K`;
 
+const fmtMoney = (n: number) =>
+  new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(n);
+
 export default function ContactDrawer({ contact, deals, onClose }: ContactDrawerProps) {
   const contactDeals = deals.filter((d) => contact.dealIds.includes(d.id));
+  const { getProposalsByContact } = useProposals();
+  const contactProposals = getProposalsByContact(contact.id);
 
   return (
     <>
@@ -73,6 +82,49 @@ export default function ContactDrawer({ contact, deals, onClose }: ContactDrawer
               ))}
               {contactDeals.length === 0 && (
                 <p className="text-sm text-gray-400 text-center py-4">Sin deals asociados</p>
+              )}
+            </div>
+          </div>
+
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                Propuestas ({contactProposals.length})
+              </h3>
+              <Link
+                href={`/propuestas/nueva`}
+                className="flex items-center gap-1 text-xs text-blue-600 hover:text-blue-700 font-medium"
+              >
+                <FileText className="w-3 h-3" />
+                Nueva
+              </Link>
+            </div>
+            <div className="space-y-2">
+              {contactProposals.map((proposal) => {
+                const { setupTotal } = calcProposalTotals(
+                  proposal.items,
+                  proposal.discountType,
+                  proposal.discountValue
+                );
+                return (
+                  <Link
+                    key={proposal.id}
+                    href={`/propuestas/${proposal.id}`}
+                    className="block bg-gray-50 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-xl p-3 transition-colors"
+                  >
+                    <div className="flex items-start justify-between gap-2">
+                      <div className="min-w-0">
+                        <p className="text-xs font-semibold text-gray-400">{proposal.number}</p>
+                        <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{proposal.serviceType}</p>
+                        <p className="text-xs text-gray-500 mt-0.5">{fmtMoney(setupTotal)} setup</p>
+                      </div>
+                      <StatusBadge status={proposal.status} />
+                    </div>
+                  </Link>
+                );
+              })}
+              {contactProposals.length === 0 && (
+                <p className="text-sm text-gray-400 text-center py-4">Sin propuestas asociadas</p>
               )}
             </div>
           </div>

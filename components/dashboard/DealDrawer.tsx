@@ -1,6 +1,6 @@
 'use client';
 
-import { X, Phone, Mail, Building2, Tag, Calendar, Clock } from 'lucide-react';
+import { X, Phone, Mail, Building2, Tag, Calendar, Clock, Globe } from 'lucide-react';
 import type { Deal, Contact, ActivityEntry } from '@/lib/types';
 import { UNIT_BG, getDaysSinceActivity } from '@/lib/mock-data';
 
@@ -40,15 +40,22 @@ export default function DealDrawer({ deal, contact, onClose }: DealDrawerProps) 
         </div>
 
         <div className="flex-1 overflow-y-auto px-5 py-4 space-y-6">
-          {/* Deal info */}
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${UNIT_BG[deal.unit]}`}>
                 {deal.unit}
               </span>
-              <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-2 py-0.5 rounded-full">
-                {deal.stage}
-              </span>
+              <div className="flex items-center gap-2">
+                {deal.origin === 'Portal web' && (
+                  <span className="flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/30 dark:text-violet-400">
+                    <Globe className="w-3 h-3" />
+                    Portal web
+                  </span>
+                )}
+                <span className="text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 px-2 py-0.5 rounded-full">
+                  {deal.stage}
+                </span>
+              </div>
             </div>
 
             <div className="grid grid-cols-2 gap-3">
@@ -80,7 +87,20 @@ export default function DealDrawer({ deal, contact, onClose }: DealDrawerProps) 
             </div>
           </div>
 
-          {/* Contact */}
+          {deal.portalData && Object.keys(deal.portalData).length > 0 && (
+            <div>
+              <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Datos del formulario</h3>
+              <div className="bg-violet-50 dark:bg-violet-900/20 rounded-xl p-4 space-y-2">
+                {Object.entries(deal.portalData).map(([key, value]) => (
+                  <div key={key} className="flex items-start justify-between gap-3 text-sm">
+                    <span className="text-gray-500 dark:text-gray-400 shrink-0">{key}</span>
+                    <span className="text-gray-900 dark:text-white font-medium text-right">{String(value)}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
           {contact && (
             <div>
               <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Contacto</h3>
@@ -103,7 +123,6 @@ export default function DealDrawer({ deal, contact, onClose }: DealDrawerProps) 
             </div>
           )}
 
-          {/* Activity timeline */}
           <div>
             <h3 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">Historial</h3>
             <div className="relative space-y-0">

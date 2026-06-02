@@ -7,18 +7,19 @@ import MetricCards from '@/components/dashboard/MetricCards';
 import KanbanBoard from '@/components/dashboard/KanbanBoard';
 import DealDrawer from '@/components/dashboard/DealDrawer';
 import NewLeadModal from '@/components/dashboard/NewLeadModal';
-import { deals as initialDeals, getContactById } from '@/lib/mock-data';
+import { getContactById } from '@/lib/mock-data';
+import { useDeals } from '@/lib/deals-context';
 import type { Deal, BusinessUnit } from '@/lib/types';
 
 export default function DashboardPage() {
-  const [allDeals, setAllDeals] = useState<Deal[]>(initialDeals);
+  const { deals, addDeal } = useDeals();
   const [selectedUnit, setSelectedUnit] = useState<'Todas' | BusinessUnit>('Todas');
   const [selectedDeal, setSelectedDeal] = useState<Deal | null>(null);
   const [showModal, setShowModal] = useState(false);
 
   const filtered = selectedUnit === 'Todas'
-    ? allDeals
-    : allDeals.filter((d) => d.unit === selectedUnit);
+    ? deals
+    : deals.filter((d) => d.unit === selectedUnit);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -66,19 +67,19 @@ export default function DashboardPage() {
               stage: 'Nuevo',
               value: data.value,
               origin: data.origin,
-              createdAt: '2026-05-29',
-              lastActivity: '2026-05-29',
+              createdAt: '2026-06-02',
+              lastActivity: '2026-06-02',
               activity: [
                 {
                   id: `a${Date.now()}`,
-                  date: '2026-05-29',
+                  date: '2026-06-02',
                   type: 'note',
                   description: `Lead creado. Contacto: ${data.contact}`,
                   author: 'Usuario',
                 },
               ],
             };
-            setAllDeals((prev) => [newDeal, ...prev]);
+            addDeal(newDeal);
           }}
         />
       )}

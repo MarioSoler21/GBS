@@ -10,3 +10,19 @@
     scroll-behavior: smooth;
   }
 }
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .proposal-page-break {
+    break-before: page;
+  }
+  .proposal-avoid-break {
+    break-inside: avoid;
+  }
+  @page {
+    margin: 1.5cm 2cm;
+  }
+}
